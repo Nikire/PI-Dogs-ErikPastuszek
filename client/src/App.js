@@ -7,11 +7,13 @@ import SoftNotFound from './components/SoftNotFound/SoftNotFound';
 
 function App() {
 	return (
-		<Switch>
-			<Route exact path="/" component={Landing} />
-			<Route path="/home" component={Home} />
-			<Route path="*" component={SoftNotFound} />
-		</Switch>
+		<div className="App">
+			<Switch>
+				<Route exact path="/" component={Landing} />
+				<Route path="/home" component={Home} />
+				<Route path="*" component={SoftNotFound} />
+			</Switch>
+		</div>
 	);
 }
 

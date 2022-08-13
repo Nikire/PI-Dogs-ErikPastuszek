@@ -1,0 +1,27 @@
+.landing {
+	height: 100vh;
+	background-image: url('https://i.pinimg.com/originals/b4/f0/92/b4f092523a7659c96ecdadcf33e57814.jpg');
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-size: cover;
+	background-color: var(--background-main);
+	display: flex;
+	align-content: center;
+	justify-content: center;
+	align-items: center;
+}
+
+.goHome {
+	color: var(--font-main);
+	background: rgba(255, 255, 255, 0.3);
+	padding: 10px;
+	padding-left: 20px;
+	padding-right: 20px;
+	border-radius: 15px;
+	transition: background 300ms;
+}
+
+.goHome:hover {
+	background: rgba(255, 255, 255, 0.8);
+}

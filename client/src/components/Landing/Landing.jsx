@@ -4,8 +4,9 @@ import { Link } from 'react-router-dom';
 export default function Landing() {
 	return (
 		<div className="landing">
-			Landing
-			<Link to="/home">Gotta catch 'em all</Link>
+			<Link to="/home" style={{ textDecoration: 'none' }}>
+				<h1 className="goHome">Doggies</h1>
+			</Link>
 		</div>
 	);
 }

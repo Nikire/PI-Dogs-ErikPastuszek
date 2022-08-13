@@ -1,0 +1,32 @@
+.card {
+	margin-top: 15px;
+	margin-bottom: 15px;
+	width: 200px;
+	height: 300px;
+	background: var(--background-main);
+	box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.5);
+	transition: 300ms;
+	position: relative;
+	animation-name: aparece;
+	animation-duration: 1s;
+	bottom: 0px;
+	transition: (box-shadow, bottom) 300ms;
+}
+
+.card:hover {
+	box-shadow: 0px 10px 5px 0px rgba(0, 0, 0, 0.3);
+	bottom: 10px;
+}
+
+@keyframes aparece {
+	0% {
+		color: rgba(0, 0, 0, 0);
+		background: rgba(255, 255, 255, 0);
+		box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0);
+	}
+	100% {
+		color: rgba(0, 0, 0, 1);
+		background: rgba(255, 255, 255, 1);
+		box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.5);
+	}
+}
