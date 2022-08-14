@@ -4,6 +4,7 @@
 	--light-orange: #dbb06a;
 	--main-orange: #f0852c;
 	--strong-orange: #eb6900;
+	--disabled-orange: hsl(37, 34%, 54%);
 	--background-main: white;
 	--font-main: black;
 }

@@ -111,7 +111,7 @@ Se debe desarrollar una aplicación de React/Redux que contenga las siguientes p
 **Ruta principal**: debe contener
 
 - [ ] Input de búsqueda para encontrar razas de perros por nombre
-- [ ] Área donde se verá el listado de razas de perros. Deberá mostrar su:
+- [✅] Área donde se verá el listado de razas de perros. Deberá mostrar su:
   - Imagen
   - Nombre
   - Temperamento

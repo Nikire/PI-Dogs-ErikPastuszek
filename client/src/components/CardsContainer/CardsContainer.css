@@ -4,5 +4,6 @@
 	flex-wrap: wrap;
 	justify-content: center;
 	gap: 10px;
-	position: relative;
+	margin-inline: auto;
+	max-width: 1120px;
 }

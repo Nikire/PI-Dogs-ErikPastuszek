@@ -7,11 +7,12 @@ html {
 
 .mainBtn {
 	padding: 10px;
-	background: var(--light-orange);
+	background: var(--main-orange);
 	border-radius: 5px;
 	color: var(--font-main);
 	cursor: pointer;
 	transition: background 300ms;
+	user-select: none;
 }
 
 .mainBtn:hover {
@@ -25,8 +26,14 @@ html {
 	color: var(--font-main);
 	cursor: pointer;
 	transition: background 300ms;
+	user-select: none;
 }
 
 .secBtn:hover {
 	background: var(--primary-green);
+}
+* {
+	box-sizing: border-box;
+	padding: 0;
+	margin: 0;
 }
