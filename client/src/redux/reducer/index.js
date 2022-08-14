@@ -5,11 +5,13 @@ import {
 	SET_PAGINATION,
 	NEXT_PAGE,
 	PREV_PAGE,
+	SEARCH_DOG_DETAILS,
 } from '../actionTypes';
 const initialState = {
 	API_Dogs: [],
 	DB_Dogs: [],
 	allDogs: [],
+	dogDetails: {},
 	isLoading: false,
 	pagination: {
 		totalPages: 0,
@@ -93,6 +95,15 @@ const rootReducer = (state = initialState, action) => {
 					...state.pagination,
 					...prevConfig,
 				},
+			};
+		case SEARCH_DOG_DETAILS:
+			let findedDog = state.allDogs.find(
+				(dog) => dog.id === Number(action.payload)
+			);
+			console.log(findedDog, action.payload);
+			return {
+				...state,
+				dogDetails: findedDog,
 			};
 		default:
 			return state;

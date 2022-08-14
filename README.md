@@ -122,16 +122,16 @@ Se debe desarrollar una aplicación de React/Redux que contenga las siguientes p
 - [ ] Botones/Opciones para ordenar tanto ascendentemente como descendentemente las razas de perro por:
   - Orden alfabético
   - Peso
-- [ ] Paginado para ir buscando y mostrando las siguientes razas, mostrando 8 razas por página.
+- [✅] Paginado para ir buscando y mostrando las siguientes razas, mostrando 8 razas por página.
 
 **IMPORTANTE**: Dentro de la Ruta Principal se deben mostrar tanto las razas de perros traidas desde la API como así también las de la base de datos, pero NO está permitido almacenar en la base de datos las razas de perros de la API sino que solamente se pueden guardar aquellas creadas desde el form.
 
 **Ruta de detalle de raza de perro**: debe contener
 
-- [ ] Los campos mostrados en la ruta principal para cada raza (imagen, nombre y temperamento)
-- [ ] Altura
-- [ ] Peso
-- [ ] Años de vida
+- [✅] Los campos mostrados en la ruta principal para cada raza (imagen, nombre y temperamento)
+- [✅] Altura
+- [✅] Peso
+- [✅] Años de vida
 
 **Ruta de creación de raza de perro**: debe contener
 

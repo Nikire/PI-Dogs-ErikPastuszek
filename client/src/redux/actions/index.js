@@ -7,6 +7,7 @@ import {
 	SET_PAGINATION,
 	NEXT_PAGE,
 	PREV_PAGE,
+	SEARCH_DOG_DETAILS,
 } from '../actionTypes';
 
 export const getAPIDogs = () => async (dispatch) => {
@@ -49,4 +50,8 @@ export const nextPage = (dogs) => (dispatch) => {
 };
 export const prevPage = (dogs) => (dispatch) => {
 	dispatch({ type: PREV_PAGE, payload: dogs });
+};
+
+export const searchDogDetails = (id) => (dispatch) => {
+	dispatch({ type: SEARCH_DOG_DETAILS, payload: id });
 };
