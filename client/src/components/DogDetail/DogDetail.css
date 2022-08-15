@@ -1,5 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=DynaPuff&display=swap');
 .details {
-	height: 88vh;
+	height: 80vh;
 	display: flex;
 	flex-direction: column;
 	align-content: center;
@@ -24,6 +25,8 @@
 	padding: 10px;
 	border-radius: 30px;
 	box-shadow: 0px 15px 20px 0px rgba(0, 0, 0, 0.75);
+	animation-name: apareceSinSombra;
+	animation-duration: 1s;
 }
 .imgDetails {
 	width: auto;

@@ -32,15 +32,19 @@ export default function DogDetail(props) {
 						/>
 						<ul className="detailComponent borderDescription">
 							<li>
+								<h3>Temperament :</h3>
 								<p>{dogDetails?.temperament}</p>
 							</li>
 							<li>
+								<h3>Height :</h3>
 								<p>{dogDetails?.height?.metric} Cm</p>
 							</li>
 							<li>
+								<h3>Weight :</h3>
 								<p>{dogDetails?.weight?.metric} Kg</p>
 							</li>
 							<li>
+								<h3>Life span:</h3>
 								<p>{dogDetails?.life_span}</p>
 							</li>
 						</ul>

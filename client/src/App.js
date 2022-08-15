@@ -10,15 +10,18 @@ import SoftNotFound from './components/SoftNotFound/SoftNotFound';
 function App() {
 	const [showNav, setShowNav] = useState(false);
 
-	const activeNowNav = () => {
+	const activeNowNav = (bool) => {
 		setShowNav(true);
+		if (bool !== undefined) setShowNav(bool);
 	};
 
 	return (
 		<div className="App">
 			{showNav && <Nav />}
 			<Switch>
-				<Route exact path="/" component={Landing} />
+				<Route exact path="/">
+					<Landing activeNowNav={activeNowNav} />
+				</Route>
 				<Route exact path="/home">
 					<Home activeNowNav={activeNowNav} />
 				</Route>

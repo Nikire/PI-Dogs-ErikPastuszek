@@ -6,6 +6,9 @@
 	width: 300px;
 	padding: 10px;
 	border-radius: 40px;
+	animation-name: apareceSinSombra;
+	animation-duration: 1s;
+	border-bottom: 2px solid var(--strong-orange);
 }
 
 .circular {
@@ -21,4 +24,8 @@
 .disabled {
 	pointer-events: none;
 	background: var(--disabled-orange);
+}
+
+.textPagination {
+	font-weight: 600;
 }

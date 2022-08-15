@@ -7,3 +7,7 @@
 	margin-inline: auto;
 	max-width: 1120px;
 }
+.link {
+	color: var(--font-main);
+	text-decoration: none;
+}

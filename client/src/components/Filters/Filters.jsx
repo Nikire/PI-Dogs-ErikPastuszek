@@ -1,9 +1,9 @@
 import React from 'react';
-import './Filter.css';
+import './Filters.css';
 import Filter from './Filter';
 export default function Filters() {
 	return (
-		<div>
+		<div className="filtersContainer">
 			<Filter />
 			<Filter />
 			<Filter />

@@ -25,7 +25,7 @@ export default function Pagination() {
 			>
 				&larr;
 			</div>
-			<div>
+			<div className="textPagination">
 				PAGINA {pagination.actualPage + 1} DE {pagination.totalPages + 1}
 			</div>
 			<div

@@ -1,0 +1,9 @@
+.filtersContainer {
+	width: 500px;
+	margin: 10px;
+	padding: 10px;
+	display: flex;
+	justify-content: space-around;
+	animation-name: apareceSinSombra;
+	animation-duration: 1s;
+}
