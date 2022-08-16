@@ -100,7 +100,6 @@ const rootReducer = (state = initialState, action) => {
 			let findedDog = state.allDogs.find(
 				(dog) => dog.id === Number(action.payload)
 			);
-			console.log(findedDog, action.payload);
 			return {
 				...state,
 				dogDetails: findedDog,

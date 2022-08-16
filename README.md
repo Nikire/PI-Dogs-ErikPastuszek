@@ -96,8 +96,8 @@ A continuación se detallaran los requerimientos mínimos para la aprobación de
 
 - [✅] React
 - [✅] Redux
-- [ ] Express
-- [ ] Sequelize - Postgres
+- [✅] Express
+- [✅] Sequelize - Postgres
 
 ## Frontend
 
@@ -149,13 +149,13 @@ Se debe desarrollar una aplicación de React/Redux que contenga las siguientes p
 
 El modelo de la base de datos deberá tener las siguientes entidades (Aquellas propiedades marcadas con asterísco deben ser obligatorias):
 
-- [ ] Raza con las siguientes propiedades:
+- [✅] Raza con las siguientes propiedades:
   - ID \*
   - Nombre \*
   - Altura \*
   - Peso \*
   - Años de vida
-- [ ] Temperamento con las siguientes propiedades:
+- [✅] Temperamento con las siguientes propiedades:
   - ID
   - Nombre
 
