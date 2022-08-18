@@ -19,5 +19,15 @@ module.exports = (sequelize) => {
 		lifespan: {
 			type: DataTypes.STRING,
 		},
+		id: {
+			type: DataTypes.UUID,
+			defaultValue: DataTypes.UUIDV4,
+			allowNull: false,
+			primaryKey: true,
+		},
+		image: {
+			type: DataTypes.STRING,
+			allowNull: true,
+		},
 	});
 };

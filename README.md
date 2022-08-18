@@ -182,7 +182,7 @@ Se debe desarrollar un servidor en Node/Express con las siguientes rutas:
 - [✅] **POST /dogs**:
   - Recibe los datos recolectados desde el formulario controlado de la ruta de creación de raza de perro por body
   - Crea una raza de perro en la base de datos relacionada con sus temperamentos
-- [ ] **GET /temperaments**:
+- [✅] **GET /temperaments**:
   - Obtener todos los temperamentos posibles
   - En una primera instancia deberán obtenerlos desde la API externa y guardarlos en su propia base de datos y luego ya utilizarlos desde allí
 
