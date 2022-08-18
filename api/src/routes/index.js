@@ -9,7 +9,7 @@ const { Dog, Temperament } = require('../db.js');
 // Ejemplo: router.use('/auth', authRouter);
 
 //----------------DOGS-------------------
-//GET CON QUERY
+//GET QUERY
 router.get('/dogs', async (req, res) => {
 	const { name } = req.query;
 	try {
@@ -32,40 +32,73 @@ router.get('/dogs', async (req, res) => {
 		}));
 		let allDogs = response.concat(dbDogs);
 		if (name) {
-			allDogs = allDogs.filter(
-				(dog) => dog.name.toLowerCase() === name.toLowerCase()
-			); //USAR REGEX EN UN FUTURO PARA HACER UN "PARECIDO"
+			allDogs = allDogs.filter((dog) =>
+				dog.name.toLowerCase().includes(name.toLowerCase())
+			);
 		}
-		//ACA HAGO EL LLAMADO A TODOS LOS PERROS, A LOS DE LA API Y A LOS DE LA DB
-		res.json(allDogs);
+		if (allDogs.length === 0)
+			res.status(404).json({ msg: 'Dog breeds not found!' });
+		else res.status(200).json(allDogs);
 	} catch (err) {
 		res.json(err.message);
 	}
 });
-//GET CON PARAMS
+//GET PARAMS
 router.get('/dogs/:id', async (req, res) => {
 	const { id } = req.params;
 	try {
-		let findedDog = await getApiDogs();
-		findedDog = findedDog.find((dog) => dog.id === Number(id));
-		res.json(findedDog);
+		let findedDog = {};
+
+		if (typeof id === 'string') {
+			findedDog = await Dog.findAll();
+			findedDog = findedDog.map((dog) => ({
+				id: dog.dataValues.id,
+				name: dog.dataValues.name,
+				height: dog.dataValues.height,
+				weight: dog.dataValues.weight,
+				lifespan: dog.dataValues.lifespan,
+				image: dog.dataValues.image,
+			}));
+		} else {
+			findedDog = await getApiDogs();
+			findedDog = findedDog.find((dog) => dog.id === Number(id));
+			findedDog = findedDog.map((dog) => ({
+				id: dog.dataValues.id,
+				name: dog.dataValues.name,
+				height: dog.dataValues.height,
+				weight: dog.dataValues.weight,
+				lifespan: dog.dataValues.lifespan,
+				image: dog.dataValues.image,
+			}));
+		}
+		if (Object.keys(findedDog).length === 0)
+			res.status(404).json({ msg: 'Dog breed not found!' });
+		else res.status(200).json(findedDog);
 	} catch (error) {
 		res.json(error.message);
 	}
 });
-//POST PERROS
+//POST
 router.post('/dogs', async (req, res) => {
 	const { name, height, weight, lifespan } = req.body;
-	let dogPost = { name, height, weight, lifespan };
+	let dogPost = { name, height, weight, lifespan }; //<-----------FALTAN LAS VALIDACIONES
 	Dog.create(dogPost);
 	res.json(dogPost);
 });
-//<-------------- TENES QUE BUSCAR EN SEQUELIZE COMO HACER LA PETICION A LA DB ------------->
 //----------------TEMPERAMENTS------------------
 router.get('/temperaments', async (req, res) => {
-	//const response = SENTENCIA SEQUELIZE
-	//ACA FALTA LA CONDICION DE QUE SI YA ESTÁ EN LA DB NO HACE FALTA ASIGNARLE A RESPONSE LA DE LOS API
-	const response = await getApiTemperaments();
-	res.json(response);
+	let temperamentsDb = await Temperament.findAll({
+		attributes: ['name'],
+	});
+	if (temperamentsDb.length === 0) {
+		temperamentsDb = await getApiTemperaments();
+		temperamentsDb.forEach((temp) => {
+			Temperament.create({ name: temp });
+		});
+	} else {
+		temperamentsDb = temperamentsDb.map((temp) => temp.name);
+	}
+
+	res.json(temperamentsDb);
 });
 module.exports = router;
