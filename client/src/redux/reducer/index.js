@@ -1,6 +1,5 @@
 import {
 	GET_ALL_DOGS,
-	GET_API_DOGS,
 	SET_LOADING,
 	SET_PAGINATION,
 	NEXT_PAGE,
@@ -8,8 +7,6 @@ import {
 	SEARCH_DOG_DETAILS,
 } from '../actionTypes';
 const initialState = {
-	API_Dogs: [],
-	DB_Dogs: [],
 	allDogs: [],
 	dogDetails: {},
 	isLoading: false,
@@ -25,11 +22,10 @@ const initialState = {
 
 const rootReducer = (state = initialState, action) => {
 	switch (action.type) {
-		case GET_API_DOGS:
+		case GET_ALL_DOGS:
 			return {
 				...state,
-				API_Dogs: action.payload,
-				allDogs: [...state.allDogs].concat(action.payload),
+				allDogs: action.payload,
 			};
 		case SET_LOADING:
 			return {

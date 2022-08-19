@@ -80,8 +80,13 @@ router.get('/dogs/:id', async (req, res) => {
 });
 //POST
 router.post('/dogs', async (req, res) => {
-	const { name, height, weight, lifespan } = req.body;
-	let dogPost = { name, height, weight, lifespan }; //<-----------FALTAN LAS VALIDACIONES
+	let { name, height, weight, lifespan, image } = req.body;
+	if (!image) {
+		image =
+			'https://previews.123rf.com/images/danilobiancalana/danilobiancalana1303/danilobiancalana130300058/18516625-un-peque%C3%B1o-perro-confundido.jpg';
+	}
+	let dogPost = { name, height, weight, lifespan, image }; //<-----------FALTAN LAS VALIDACIONES
+
 	Dog.create(dogPost);
 	res.json(dogPost);
 });

@@ -14,9 +14,9 @@ export default function CardsContainer() {
 						id={dog.id}
 						key={dog.name + dog.id}
 						name={dog.name}
-						img={dog.image.url}
+						img={dog.image}
 						temperament={dog.temperament}
-						weight={dog.weight.metric}
+						weight={dog.weight}
 					/>
 				</Link>
 			))}

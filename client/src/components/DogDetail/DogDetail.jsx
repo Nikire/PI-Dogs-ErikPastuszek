@@ -6,7 +6,7 @@ import { searchDogDetails, getAPIDogs } from '../../redux/actions';
 import Spinner from '../Spinner/Spinner';
 import './DogDetail.css';
 export default function DogDetail(props) {
-	const params = useParams();
+	/* const params = useParams();
 	const dispatch = useDispatch();
 	const apiDogs = useSelector((state) => state.API_Dogs);
 	const dogDetails = useSelector((state) => state.dogDetails);
@@ -52,5 +52,6 @@ export default function DogDetail(props) {
 				</div>
 			)}
 		</div>
-	);
+	); */
+	return <div> ANASHE </div>;
 }
