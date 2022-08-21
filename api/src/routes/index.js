@@ -1,10 +1,10 @@
 const { Router } = require('express');
+const { Op } = require('sequelize');
 // Importar todos los routers;
 // Ejemplo: const authRouter = require('./auth.js');
 const { getApiDogs, getApiTemperaments } = require('./functions');
 const router = Router();
 const { Dog, Temperament } = require('../db.js');
-
 // Configurar los routers
 // Ejemplo: router.use('/auth', authRouter);
 
@@ -20,6 +20,8 @@ router.get('/dogs', async (req, res) => {
 			name: responseDog.name,
 			lifespan: responseDog.life_span,
 			temperament: responseDog.temperament,
+			weight: responseDog.weight.metric,
+			height: responseDog.height.metric,
 			image: responseDog.image.url, //MODIFICAR DESPUES EN EL FRONT LOS DATOS QUE TOMA DE LA IMG
 		}));
 		dbDogs = dbDogs.map((dbDog) => ({
@@ -48,28 +50,33 @@ router.get('/dogs/:id', async (req, res) => {
 	const { id } = req.params;
 	try {
 		let findedDog = {};
-
-		if (typeof id === 'string') {
-			findedDog = await Dog.findAll();
-			findedDog = findedDog.map((dog) => ({
-				id: dog.dataValues.id,
-				name: dog.dataValues.name,
-				height: dog.dataValues.height,
-				weight: dog.dataValues.weight,
-				lifespan: dog.dataValues.lifespan,
-				image: dog.dataValues.image,
-			}));
+		if (isNaN(Number(id))) {
+			findedDog = await Dog.findAll({
+				where: {
+					id: { [Op.eq]: id },
+				},
+			});
+			findedDog = findedDog[0];
+			findedDog = {
+				id: findedDog.dataValues.id,
+				name: findedDog.dataValues.name,
+				height: findedDog.dataValues.height,
+				weight: findedDog.dataValues.weight,
+				lifespan: findedDog.dataValues.lifespan,
+				image: findedDog.dataValues.image,
+			};
 		} else {
 			findedDog = await getApiDogs();
 			findedDog = findedDog.find((dog) => dog.id === Number(id));
-			findedDog = findedDog.map((dog) => ({
-				id: dog.dataValues.id,
-				name: dog.dataValues.name,
-				height: dog.dataValues.height,
-				weight: dog.dataValues.weight,
-				lifespan: dog.dataValues.lifespan,
-				image: dog.dataValues.image,
-			}));
+			findedDog = {
+				id: findedDog.id,
+				name: findedDog.name,
+				height: findedDog.height.metric,
+				weight: findedDog.weight.metric,
+				lifespan: findedDog.life_span,
+				image: findedDog.image.url,
+				temperament: findedDog.temperament,
+			};
 		}
 		if (Object.keys(findedDog).length === 0)
 			res.status(404).json({ msg: 'Dog breed not found!' });
@@ -80,12 +87,8 @@ router.get('/dogs/:id', async (req, res) => {
 });
 //POST
 router.post('/dogs', async (req, res) => {
-	let { name, height, weight, lifespan, image } = req.body;
-	if (!image) {
-		image =
-			'https://previews.123rf.com/images/danilobiancalana/danilobiancalana1303/danilobiancalana130300058/18516625-un-peque%C3%B1o-perro-confundido.jpg';
-	}
-	let dogPost = { name, height, weight, lifespan, image }; //<-----------FALTAN LAS VALIDACIONES
+	const { name, height, weight, lifespan, image, temperament } = req.body;
+	let dogPost = { name, height, weight, lifespan, image, temperament }; //<-----------FALTAN LAS VALIDACIONES
 
 	Dog.create(dogPost);
 	res.json(dogPost);

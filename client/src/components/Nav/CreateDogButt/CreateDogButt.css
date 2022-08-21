@@ -1,0 +1,4 @@
+.nolink {
+	color: var(--font-main);
+	text-decoration: none;
+}

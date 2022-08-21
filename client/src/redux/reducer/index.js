@@ -27,6 +27,11 @@ const rootReducer = (state = initialState, action) => {
 				...state,
 				allDogs: action.payload,
 			};
+		case SEARCH_DOG_DETAILS:
+			return {
+				...state,
+				dogDetails: action.payload,
+			};
 		case SET_LOADING:
 			return {
 				...state,
@@ -92,14 +97,7 @@ const rootReducer = (state = initialState, action) => {
 					...prevConfig,
 				},
 			};
-		case SEARCH_DOG_DETAILS:
-			let findedDog = state.allDogs.find(
-				(dog) => dog.id === Number(action.payload)
-			);
-			return {
-				...state,
-				dogDetails: findedDog,
-			};
+
 		default:
 			return state;
 	}

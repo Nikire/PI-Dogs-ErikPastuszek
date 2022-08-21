@@ -2,7 +2,7 @@ import React from 'react';
 import './Nav.css';
 import { Link } from 'react-router-dom';
 import SearchBox from './SearchBox/SearchBox';
-import CreateDog from './CreateDog/CreateDog';
+import CreateDogButt from './CreateDogButt/CreateDogButt';
 import Logo from './Logo/Logo';
 export default function Nav() {
 	return (
@@ -12,7 +12,9 @@ export default function Nav() {
 					<Logo />
 				</Link>
 				<SearchBox />
-				<CreateDog />
+				<Link to="/home/create" style={{ textDecoration: 'none' }}>
+					<CreateDogButt />
+				</Link>
 			</nav>
 		</header>
 	);
