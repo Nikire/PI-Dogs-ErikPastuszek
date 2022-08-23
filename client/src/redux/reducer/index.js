@@ -5,9 +5,12 @@ import {
 	NEXT_PAGE,
 	PREV_PAGE,
 	SEARCH_DOG_DETAILS,
+	GET_ALL_TEMPERAMENTS,
 } from '../actionTypes';
+
 const initialState = {
 	allDogs: [],
+	temperaments: [],
 	dogDetails: {},
 	isLoading: false,
 	pagination: {
@@ -97,7 +100,11 @@ const rootReducer = (state = initialState, action) => {
 					...prevConfig,
 				},
 			};
-
+		case GET_ALL_TEMPERAMENTS:
+			return {
+				...state,
+				temperaments: action.payload,
+			};
 		default:
 			return state;
 	}

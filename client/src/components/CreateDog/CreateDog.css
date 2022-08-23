@@ -45,9 +45,32 @@ h6 {
 .form-input-text {
 	width: 150px;
 }
+.form-input-number {
+	width: 150px;
+	text-align: center;
+}
 .small {
 	width: 75px;
 }
 .large {
 	width: 100%;
+}
+
+.error {
+	color: red;
+	font-weight: bold;
+}
+
+.temperament-div {
+	padding: 3px;
+	background: var(--main-orange);
+	cursor: pointer;
+	user-select: none;
+	transition: background 300ms;
+	border-radius: 3px;
+	border: 2px solid black;
+}
+
+.temperament-div:hover {
+	background: var(--strong-orange);
 }

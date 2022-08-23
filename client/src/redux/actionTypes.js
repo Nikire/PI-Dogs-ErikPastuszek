@@ -1,4 +1,5 @@
 export const GET_ALL_DOGS = 'GET_ALL_DOGS';
+export const GET_ALL_TEMPERAMENTS = 'GET_ALL_TEMPERAMENTS';
 export const SET_LOADING = 'SET_LOADING';
 export const SET_PAGINATION = 'SET_PAGINATION';
 export const NEXT_PAGE = 'NEXT_PAGE';

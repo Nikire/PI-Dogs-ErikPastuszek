@@ -50,6 +50,7 @@ router.get('/dogs/:id', async (req, res) => {
 	const { id } = req.params;
 	try {
 		let findedDog = {};
+
 		if (isNaN(Number(id))) {
 			findedDog = await Dog.findAll({
 				where: {
@@ -87,8 +88,9 @@ router.get('/dogs/:id', async (req, res) => {
 });
 //POST
 router.post('/dogs', async (req, res) => {
-	const { name, height, weight, lifespan, image, temperament } = req.body;
-	let dogPost = { name, height, weight, lifespan, image, temperament }; //<-----------FALTAN LAS VALIDACIONES
+	console.log('ESTO ES REQBODYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY', req.body);
+	const { name, height, weight, lifespan, image, temperaments } = req.body;
+	let dogPost = { name, height, weight, lifespan, image, temperaments }; //<-----------FALTAN LAS VALIDACIONES
 
 	Dog.create(dogPost);
 	res.json(dogPost);
