@@ -13,7 +13,13 @@ const { Dog, Temperament } = require('../db.js');
 router.get('/dogs', async (req, res) => {
 	const { name } = req.query;
 	try {
-		let dbDogs = await Dog.findAll();
+		let dbDogs = await Dog.findAll({
+			include: {
+				model: Temperament,
+				attributes: ['name'],
+				through: { attributes: [] },
+			},
+		});
 		let response = await getApiDogs();
 		response = response.map((responseDog) => ({
 			id: responseDog.id,
@@ -31,6 +37,9 @@ router.get('/dogs', async (req, res) => {
 			weight: dbDog.dataValues.weight,
 			lifespan: dbDog.dataValues.lifespan,
 			image: dbDog.dataValues.image,
+			temperament: dbDog.dataValues.temperaments
+				.map((temp) => temp.name)
+				.join(', '),
 		}));
 		let allDogs = response.concat(dbDogs);
 		if (name) {
@@ -42,6 +51,7 @@ router.get('/dogs', async (req, res) => {
 			res.status(404).json({ msg: 'Dog breeds not found!' });
 		else res.status(200).json(allDogs);
 	} catch (err) {
+		console.log(err);
 		res.json(err.message);
 	}
 });
@@ -56,6 +66,11 @@ router.get('/dogs/:id', async (req, res) => {
 				where: {
 					id: { [Op.eq]: id },
 				},
+				include: {
+					model: Temperament,
+					attributes: ['name'],
+					through: { attributes: [] },
+				},
 			});
 			findedDog = findedDog[0];
 			findedDog = {
@@ -65,6 +80,9 @@ router.get('/dogs/:id', async (req, res) => {
 				weight: findedDog.dataValues.weight,
 				lifespan: findedDog.dataValues.lifespan,
 				image: findedDog.dataValues.image,
+				temperament: findedDog.dataValues.temperaments
+					.map((temp) => temp.name)
+					.join(', '),
 			};
 		} else {
 			findedDog = await getApiDogs();
@@ -83,32 +101,43 @@ router.get('/dogs/:id', async (req, res) => {
 			res.status(404).json({ msg: 'Dog breed not found!' });
 		else res.status(200).json(findedDog);
 	} catch (error) {
+		console.log(error);
 		res.json(error.message);
 	}
 });
 //POST
 router.post('/dogs', async (req, res) => {
-	console.log('ESTO ES REQBODYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY', req.body);
 	const { name, height, weight, lifespan, image, temperaments } = req.body;
-	let dogPost = { name, height, weight, lifespan, image, temperaments }; //<-----------FALTAN LAS VALIDACIONES
-
-	Dog.create(dogPost);
-	res.json(dogPost);
+	try {
+		const dogPost = await Dog.create({ name, height, weight, lifespan, image }); //<-----------FALTAN LAS VALIDACIONES
+		const temperament = await Temperament.findAll({
+			where: { name: temperaments },
+		});
+		dogPost.addTemperament(temperament);
+		res.json(dogPost);
+	} catch (err) {
+		console.log(err);
+		res.json(err.message);
+	}
 });
 //----------------TEMPERAMENTS------------------
 router.get('/temperaments', async (req, res) => {
-	let temperamentsDb = await Temperament.findAll({
-		attributes: ['name'],
-	});
-	if (temperamentsDb.length === 0) {
-		temperamentsDb = await getApiTemperaments();
-		temperamentsDb.forEach((temp) => {
-			Temperament.create({ name: temp });
+	try {
+		let temperamentsDb = await Temperament.findAll({
+			attributes: ['name'],
 		});
-	} else {
-		temperamentsDb = temperamentsDb.map((temp) => temp.name);
+		if (temperamentsDb.length === 0) {
+			temperamentsDb = await getApiTemperaments();
+			temperamentsDb.forEach((temp) => {
+				Temperament.create({ name: temp });
+			});
+		} else {
+			temperamentsDb = temperamentsDb.map((temp) => temp.name);
+		}
+		res.json(temperamentsDb);
+	} catch (err) {
+		console.log(err.message);
+		res.json(err.message);
 	}
-
-	res.json(temperamentsDb);
 });
 module.exports = router;

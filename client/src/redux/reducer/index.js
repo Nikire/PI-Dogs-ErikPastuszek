@@ -40,11 +40,8 @@ const rootReducer = (state = initialState, action) => {
 				...state,
 				isLoading: action.payload,
 			};
-		case SET_PAGINATION:
+		case SET_PAGINATION: // PAYLOAD -> ALLDOGS
 			let paginationConfig = {
-				totalPages: Math.floor(
-					action.payload.length / state.pagination.dogsPerPage
-				),
 				actualDogs: action.payload.slice(
 					state.pagination.actualPage * state.pagination.dogsPerPage,
 					state.pagination.actualPage * state.pagination.dogsPerPage +
@@ -59,6 +56,16 @@ const rootReducer = (state = initialState, action) => {
 					state.pagination.actualPage * state.pagination.dogsPerPage
 				),
 			};
+
+			if (action.payload.length > 1) {
+				paginationConfig.totalPages = Math.floor(
+					(action.payload.length - 1) / state.pagination.dogsPerPage
+				);
+			} else {
+				paginationConfig.totalPages = Math.floor(
+					action.payload.length / state.pagination.dogsPerPage
+				);
+			}
 			return {
 				...state,
 				pagination: {

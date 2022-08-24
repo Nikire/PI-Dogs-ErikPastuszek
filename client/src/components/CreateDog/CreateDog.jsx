@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import {
 	getAllTemperaments,
 	postNewDog,
@@ -10,6 +11,7 @@ import Spinner from '../Spinner/Spinner';
 import './CreateDog.css';
 import PatitaSVG from './PatitaSVG/PatitaSVG';
 export default function CreateDog(props) {
+	let history = useHistory();
 	const dispatch = useDispatch();
 	const loading = useSelector((state) => state.loading);
 	const temperaments = useSelector((state) => state.temperaments);
@@ -32,7 +34,6 @@ export default function CreateDog(props) {
 		) {
 			errors = { ...errors, name: false };
 		} else {
-			console.log('está mal name');
 			errors = { ...errors, name: true };
 			isValidated = false;
 		}
@@ -43,14 +44,12 @@ export default function CreateDog(props) {
 		) {
 			errors = { ...errors, height_min: false };
 		} else {
-			console.log('está mal height_min');
 			errors = { ...errors, height_min: true };
 			isValidated = false;
 		}
 		if (info.height_max <= 90 && info.height_min < info.height_max) {
 			errors = { ...errors, height_max: false };
 		} else {
-			console.log('está mal height_max');
 			errors = { ...errors, height_max: true };
 			isValidated = false;
 		}
@@ -61,15 +60,12 @@ export default function CreateDog(props) {
 		) {
 			errors = { ...errors, weight_min: false };
 		} else {
-			console.log('está mal weight_min');
 			errors = { ...errors, weight_min: true };
 			isValidated = false;
 		}
 		if (info.weight_max < 90 && info.weight_min < info.weight_max) {
 			errors = { ...errors, weight_max: false };
 		} else {
-			console.log('está mal weight_max');
-
 			errors = { ...errors, weight_max: true };
 			isValidated = false;
 		}
@@ -81,9 +77,6 @@ export default function CreateDog(props) {
 		) {
 			errors = { ...errors, lifespan_min: false };
 		} else {
-			console.log('está mal lifespan_min');
-			console.log(info.lifespan_min, info.lifespan_max);
-
 			errors = { ...errors, lifespan_min: true };
 			isValidated = false;
 		}
@@ -93,8 +86,6 @@ export default function CreateDog(props) {
 		) {
 			errors = { ...errors, lifespan_max: false };
 		} else {
-			console.log('está mal lifespan_max');
-
 			errors = { ...errors, lifespan_max: true };
 			isValidated = false;
 		}
@@ -109,7 +100,6 @@ export default function CreateDog(props) {
 			isValidated = false;
 		}
 		setError(errors);
-		console.log(errors);
 		return isValidated;
 	};
 
@@ -138,8 +128,10 @@ export default function CreateDog(props) {
 	};
 	const onHandleSubmit = (e) => {
 		e.preventDefault();
-		if (checkValidate())
+		if (checkValidate()) {
 			dispatch(postNewDog({ ...info, temperaments: selectedTemperaments })); //si está validado dispachar el form
+			history.push('../Home');
+		}
 	};
 	const [selectedTemperaments, setSelectedTemperaments] = useState([]);
 	const [error, setError] = useState({
@@ -169,7 +161,6 @@ export default function CreateDog(props) {
 		!temperaments.length
 			? dispatch(getAllTemperaments())
 			: dispatch(setLoading(false));
-		console.log(temperaments);
 	}, [dispatch, temperaments]);
 
 	return loading ? (
@@ -302,38 +293,39 @@ export default function CreateDog(props) {
 						Create new dog breed
 					</button>
 					<p className="error" hidden={error.name ? false : true}>
-						*El nombre debe tener como máximo 30 carácteres y no debe contener
-						números
+						*The name must have a maximum of 30 characters and must not contain
+						numbers
 					</p>
 					<p className="error" hidden={error.height_min ? false : true}>
-						*La altura mínima debe ser superior a 15cm y no mayor a la altura
-						máxima
+						*The minimum height must be greater than 15cm and not greater than
+						the maximum height
 					</p>
 					<p className="error" hidden={error.height_max ? false : true}>
-						*La altura máxima debe no ser superior a 90cm y mayor a la altura
-						mínima
+						*The maximum height must not be greater than 90cm and greater than
+						the minimum height
 					</p>
 					<p className="error" hidden={error.weight_min ? false : true}>
-						*El peso mínimo debe estar entre los 2 y 89 kg y no ser superior a
-						el peso máximo
+						*The minimum weight must be between 2 and 89 kg and not exceed the
+						maximum weight
 					</p>
 					<p className="error" hidden={error.weight_max ? false : true}>
-						*El peso máximo permitido es de 90kg y no debe ser menor al peso
-						mínimo
+						*The maximum weight allowed is 90kg and must not be less than the
+						minimum weight
 					</p>
 					<p className="error" hidden={error.lifespan_min ? false : true}>
-						*La esperanza de vida mínima es de 6 años y no debe ser mayor a la
-						máxima
+						*The minimum life expectancy is 6 years and should not be greater
+						than the maximum
 					</p>
 					<p className="error" hidden={error.lifespan_max ? false : true}>
-						*La esperanza de vida máxima es de 20 años y no debe ser menor a la
-						mínima
+						*The maximum life expectancy is 20 years and must not be less than
+						the minimum
 					</p>
 					<p className="error" hidden={error.image ? false : true}>
-						*La imagen se espera que o esté vacía o que sea un link válido
+						*The image is expected to be either empty or to be a valid link
 					</p>
 					<p className="error" hidden={error.temperaments ? false : true}>
-						*Puede tener como máximo 7 temperamentos y además no debe repetirse
+						*It can have a maximum of 7 temperaments and must also not be
+						repeated
 					</p>
 				</form>
 			</div>
