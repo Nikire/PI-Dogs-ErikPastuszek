@@ -257,6 +257,7 @@ export default function CreateDog(props) {
 						/>
 					</div>
 					<div className="form-section">
+						<h4>Temperaments:</h4>
 						<select
 							defaultValue="default"
 							name="temperaments"

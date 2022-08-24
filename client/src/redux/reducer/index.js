@@ -6,12 +6,19 @@ import {
 	PREV_PAGE,
 	SEARCH_DOG_DETAILS,
 	GET_ALL_TEMPERAMENTS,
+	SET_SORT,
+	SET_FILTER,
 } from '../actionTypes';
 
 const initialState = {
 	allDogs: [],
 	temperaments: [],
 	dogDetails: {},
+	filteredDogs: [],
+	filters: {
+		weight: '',
+		temperament: '',
+	},
 	isLoading: false,
 	pagination: {
 		totalPages: 0,
@@ -29,6 +36,7 @@ const rootReducer = (state = initialState, action) => {
 			return {
 				...state,
 				allDogs: action.payload,
+				filteredDogs: action.payload,
 			};
 		case SEARCH_DOG_DETAILS:
 			return {
@@ -40,7 +48,7 @@ const rootReducer = (state = initialState, action) => {
 				...state,
 				isLoading: action.payload,
 			};
-		case SET_PAGINATION: // PAYLOAD -> ALLDOGS
+		case SET_PAGINATION: // PAYLOAD -> ALLDOGS //cambiar a filteredDogs
 			let paginationConfig = {
 				actualDogs: action.payload.slice(
 					state.pagination.actualPage * state.pagination.dogsPerPage,
@@ -111,6 +119,11 @@ const rootReducer = (state = initialState, action) => {
 			return {
 				...state,
 				temperaments: action.payload,
+			};
+		case SET_SORT:
+			return {
+				...state,
+				filteredDogs: action.payload.dogs,
 			};
 		default:
 			return state;

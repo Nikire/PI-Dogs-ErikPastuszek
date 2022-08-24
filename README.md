@@ -119,7 +119,7 @@ Se debe desarrollar una aplicación de React/Redux que contenga las siguientes p
 - [ ] Botones/Opciones para filtrar por:
   - Temperamento
   - Raza existente (es decir las que vienen de la API) o agregada por nosotros (creadas mediante el form)
-- [ ] Botones/Opciones para ordenar tanto ascendentemente como descendentemente las razas de perro por:
+- [💯] Botones/Opciones para ordenar tanto ascendentemente como descendentemente las razas de perro por:
   - Orden alfabético
   - Peso
 - [✅] Paginado para ir buscando y mostrando las siguientes razas, mostrando 8 razas por página.
@@ -135,13 +135,13 @@ Se debe desarrollar una aplicación de React/Redux que contenga las siguientes p
 
 **Ruta de creación de raza de perro**: debe contener
 
-- [ ] Un formulario **controlado con JavaScript** con los siguientes campos:
+- [✅] Un formulario **controlado con JavaScript** con los siguientes campos:
   - Nombre
   - Altura (Diferenciar entre altura mínima y máxima)
   - Peso (Diferenciar entre peso mínimo y máximo)
   - Años de vida
-- [ ] Posibilidad de seleccionar/agregar uno o más temperamentos
-- [ ] Botón/Opción para crear una nueva raza de perro
+- [✅] Posibilidad de seleccionar/agregar uno o más temperamentos
+- [✅] Botón/Opción para crear una nueva raza de perro
 
 > Es requisito que el formulario de creación esté validado con JavaScript y no sólo con validaciones HTML. Pueden agregar las validaciones que consideren. Por ejemplo: Que el nombre de la raza no pueda contener números o símbolos, que el peso/altura mínimo no pueda ser mayor al máximo y viceversa, etc.
 

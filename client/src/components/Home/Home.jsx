@@ -7,12 +7,13 @@ import {
 } from '../../redux/actions';
 import { useDispatch, useSelector } from 'react-redux';
 import CardsContainer from '../CardsContainer/CardsContainer';
-import Filters from '../Filters/Filters';
+import FiltersBox from '../FiltersBox/FiltersBox';
 import Spinner from '../Spinner/Spinner';
 import Pagination from '../Pagination/Pagination';
 import './Home.css';
 export default function Home(props) {
 	const allDogs = useSelector((state) => state.allDogs);
+	const filteredDogs = useSelector((state) => state.filteredDogs);
 	const loading = useSelector((state) => state.isLoading);
 	const pagination = useSelector((state) => state.pagination);
 	const temperaments = useSelector((state) => state.temperaments);
@@ -21,9 +22,11 @@ export default function Home(props) {
 	useEffect(() => {
 		props.activeNowNav();
 		!allDogs.length && dispatch(getAllDogs());
-		allDogs.length && pagination.actualDogs && dispatch(setPagination(allDogs));
+		filteredDogs.length &&
+			pagination.actualDogs &&
+			dispatch(setPagination(filteredDogs));
 		!temperaments.length && dispatch(getAllTemperaments());
-	}, [dispatch, allDogs]);
+	}, [dispatch, allDogs, filteredDogs]);
 
 	return (
 		<div>
@@ -31,7 +34,7 @@ export default function Home(props) {
 				<Spinner />
 			) : (
 				<div className="container">
-					<Filters />
+					<FiltersBox />
 					<Pagination />
 					<CardsContainer />
 				</div>

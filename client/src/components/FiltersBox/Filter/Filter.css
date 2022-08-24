@@ -1,0 +1,16 @@
+.filter {
+	margin: 15px;
+	background: var(--light-orange);
+	border-radius: 40px;
+	border-bottom: 2px solid var(--strong-orange);
+	padding: 10px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	align-content: center;
+	flex-wrap: wrap;
+	flex-direction: row;
+}
+input[type='radio' i] {
+	margin: 3px 3px 0px 5px;
+}
