@@ -32,7 +32,9 @@ function App() {
 				<Route exact path="/home/:id">
 					<DogDetail activeNowNav={activeNowNav} />
 				</Route>
-				<Route path="*" component={SoftNotFound} />
+				<Route path="*">
+					<SoftNotFound activeNowNav={activeNowNav} />
+				</Route>
 			</Switch>
 		</div>
 	);
