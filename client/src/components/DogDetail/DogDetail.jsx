@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { searchDogDetails } from '../../redux/actions';
 import Spinner from '../Spinner/Spinner';
+import NotFound from '../NotFound/NotFound';
 import './DogDetail.css';
 export default function DogDetail(props) {
 	const params = useParams();
@@ -19,7 +20,7 @@ export default function DogDetail(props) {
 		<div className="details">
 			{loading ? (
 				<Spinner />
-			) : (
+			) : Object.keys(dogDetails).length !== 0 ? (
 				<div className="detailsBoxBox">
 					<h1>{dogDetails?.name}</h1>
 					<div className="detailsBox">
@@ -48,6 +49,8 @@ export default function DogDetail(props) {
 						</ul>
 					</div>
 				</div>
+			) : (
+				<NotFound />
 			)}
 		</div>
 	);

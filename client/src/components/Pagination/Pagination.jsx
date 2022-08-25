@@ -8,12 +8,11 @@ export default function Pagination() {
 	const dispatch = useDispatch();
 	const dogs = useSelector((state) => state.allDogs);
 	const filteredDogs = useSelector((state) => state.filteredDogs);
-	useEffect(() => {}, []);
 	const onClickPagination = (event) => {
 		if (event.target.innerHTML === '→') {
-			dispatch(nextPage(filteredDogs));
+			dispatch(nextPage(filteredDogs, pagination));
 		} else {
-			dispatch(prevPage(filteredDogs));
+			dispatch(prevPage(filteredDogs, pagination));
 		}
 	};
 	return (

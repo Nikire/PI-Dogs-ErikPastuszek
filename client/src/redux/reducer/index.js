@@ -50,71 +50,28 @@ const rootReducer = (state = initialState, action) => {
 				...state,
 				isLoading: action.payload,
 			};
-		case SET_PAGINATION: // PAYLOAD -> ALLDOGS //cambiar a filteredDogs
-			let paginationConfig = {
-				actualDogs: action.payload.slice(
-					state.pagination.actualPage * state.pagination.dogsPerPage,
-					state.pagination.actualPage * state.pagination.dogsPerPage +
-						state.pagination.dogsPerPage
-				),
-				next: action.payload.slice(
-					(state.pagination.actualPage + 1) * state.pagination.dogsPerPage,
-					(state.pagination.actualPage + 2) * state.pagination.dogsPerPage
-				),
-				prev: action.payload.slice(
-					(state.pagination.actualPage - 1) * state.pagination.dogsPerPage,
-					state.pagination.actualPage * state.pagination.dogsPerPage
-				),
-			};
-
-			if (action.payload.length > 1) {
-				paginationConfig.totalPages = Math.floor(
-					(action.payload.length - 1) / state.pagination.dogsPerPage
-				);
-			} else {
-				paginationConfig.totalPages = Math.floor(
-					action.payload.length / state.pagination.dogsPerPage
-				);
-			}
+		case SET_PAGINATION: //payload: pagination
 			return {
 				...state,
 				pagination: {
 					...state.pagination,
-					...paginationConfig,
+					...action.payload,
 				},
 			};
-		case NEXT_PAGE:
-			let nextConfig = {
-				actualDogs: state.pagination.next,
-				actualPage: state.pagination.actualPage + 1,
-				next: action.payload.slice(
-					(state.pagination.actualPage + 2) * state.pagination.dogsPerPage,
-					(state.pagination.actualPage + 3) * state.pagination.dogsPerPage
-				),
-				prev: state.pagination.actualDogs,
-			};
+		case NEXT_PAGE: //payload: pagination
 			return {
 				...state,
 				pagination: {
 					...state.pagination,
-					...nextConfig,
+					...action.payload,
 				},
 			};
-		case PREV_PAGE:
-			let prevConfig = {
-				actualDogs: state.pagination.prev,
-				actualPage: state.pagination.actualPage - 1,
-				next: state.pagination.actualDogs,
-				prev: action.payload.slice(
-					(state.pagination.actualPage - 2) * state.pagination.dogsPerPage,
-					(state.pagination.actualPage - 1) * state.pagination.dogsPerPage
-				),
-			};
+		case PREV_PAGE: //payload: pagination
 			return {
 				...state,
 				pagination: {
 					...state.pagination,
-					...prevConfig,
+					...action.payload,
 				},
 			};
 		case GET_ALL_TEMPERAMENTS:

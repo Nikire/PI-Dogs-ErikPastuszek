@@ -97,12 +97,10 @@ router.get('/dogs/:id', async (req, res) => {
 				temperament: findedDog.temperament,
 			};
 		}
-		if (Object.keys(findedDog).length === 0)
-			res.status(404).json({ msg: 'Dog breed not found!' });
-		else res.status(200).json(findedDog);
+		res.status(200).json(findedDog);
 	} catch (error) {
 		console.log(error);
-		res.json(error.message);
+		res.status(404).json({ msg: 'Dog breed not found!' });
 	}
 });
 //POST

@@ -24,7 +24,7 @@ export default function Home(props) {
 		!allDogs.length && dispatch(getAllDogs());
 		filteredDogs.length &&
 			pagination.actualDogs &&
-			dispatch(setPagination(filteredDogs));
+			dispatch(setPagination(filteredDogs, pagination));
 		!temperaments.length && dispatch(getAllTemperaments());
 	}, [dispatch, allDogs, filteredDogs]);
 

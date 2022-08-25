@@ -39,6 +39,7 @@ export const searchDogDetails = (id) => async (dispatch) => {
 	try {
 		const response = await axios.get(`http://localhost:3001/dogs/${id}`);
 		dispatch({ type: SEARCH_DOG_DETAILS, payload: response.data });
+		console.log(response);
 	} catch (err) {
 		dispatch(setLoading(false));
 		console.log(err);
@@ -75,19 +76,61 @@ export const setLoading = (loading_status) => (dispatch) => {
 	dispatch({ type: SET_LOADING, payload: loading_status });
 };
 
-export const setPagination = (dogs) => (dispatch) => {
-	dispatch({ type: SET_PAGINATION, payload: dogs });
+export const setPagination = (dogs, pagination) => (dispatch) => {
+	let paginationConfig = {
+		actualDogs: dogs.slice(
+			pagination.actualPage * pagination.dogsPerPage,
+			pagination.actualPage * pagination.dogsPerPage + pagination.dogsPerPage
+		),
+		next: dogs.slice(
+			(pagination.actualPage + 1) * pagination.dogsPerPage,
+			(pagination.actualPage + 2) * pagination.dogsPerPage
+		),
+		prev: dogs.slice(
+			(pagination.actualPage - 1) * pagination.dogsPerPage,
+			pagination.actualPage * pagination.dogsPerPage
+		),
+	};
+
+	if (dogs.length > 1) {
+		paginationConfig.totalPages = Math.floor(
+			(dogs.length - 1) / pagination.dogsPerPage
+		);
+	} else {
+		paginationConfig.totalPages = Math.floor(
+			dogs.length / pagination.dogsPerPage
+		);
+	}
+
+	dispatch({ type: SET_PAGINATION, payload: paginationConfig });
 };
 
-export const nextPage = (dogs) => (dispatch) => {
-	dispatch({ type: NEXT_PAGE, payload: dogs });
+export const nextPage = (dogs, pagination) => (dispatch) => {
+	let nextConfig = {
+		actualDogs: pagination.next,
+		actualPage: pagination.actualPage + 1,
+		next: dogs.slice(
+			(pagination.actualPage + 2) * pagination.dogsPerPage,
+			(pagination.actualPage + 3) * pagination.dogsPerPage
+		),
+		prev: pagination.actualDogs,
+	};
+	dispatch({ type: NEXT_PAGE, payload: nextConfig });
 };
-export const prevPage = (dogs) => (dispatch) => {
-	dispatch({ type: PREV_PAGE, payload: dogs });
+export const prevPage = (dogs, pagination) => (dispatch) => {
+	let prevConfig = {
+		actualDogs: pagination.prev,
+		actualPage: pagination.actualPage - 1,
+		next: pagination.actualDogs,
+		prev: dogs.slice(
+			(pagination.actualPage - 2) * pagination.dogsPerPage,
+			(pagination.actualPage - 1) * pagination.dogsPerPage
+		),
+	};
+	dispatch({ type: PREV_PAGE, payload: prevConfig });
 };
 
 export const setSort = (sortType, dogs) => (dispatch) => {
-	// <----------------- ESTO ANDA MAL PERO CASI XD
 	if (dogs.length)
 		dogs = dogs?.map((dog) => {
 			let max_weight = Number(dog.weight?.split(' - ')[1]);
@@ -147,7 +190,7 @@ export const setSort = (sortType, dogs) => (dispatch) => {
 			break;
 		//no ordenar
 	}
-	dispatch(setPagination(dogs));
+	//aca antes iba dispatch?
 };
 
 export const setFilters = (filters, filter, filtertype) => (dispatch) => {
@@ -158,33 +201,35 @@ export const setFilters = (filters, filter, filtertype) => (dispatch) => {
 	});
 };
 
-export const applyFilters = (filters, dogs, filteredDogs) => (dispatch) => {
-	filteredDogs = filteredDogs.map((dog) => {
-		if (dog.temperament === undefined) dog.temperament = '';
-		return dog;
-	});
-	if (filters.source === '' || filters.temperament === '') {
-		filteredDogs = dogs;
-	}
-	if (filters.source !== '') {
-		if (filters.source === 'API') {
-			filteredDogs = dogs.filter((dog) => typeof dog.id === 'number');
+export const applyFilters =
+	(filters, dogs, filteredDogs, pagination) => (dispatch) => {
+		filteredDogs = filteredDogs.map((dog) => {
+			if (dog.temperament === undefined) dog.temperament = '';
+			return dog;
+		});
+		if (filters.source === '' || filters.temperament === '') {
+			filteredDogs = dogs;
 		}
-		if (filters.source === 'DB') {
-			filteredDogs = dogs.filter((dog) => typeof dog.id === 'string');
+		if (filters.source !== '') {
+			if (filters.source === 'API') {
+				filteredDogs = dogs.filter((dog) => typeof dog.id === 'number');
+			}
+			if (filters.source === 'DB') {
+				filteredDogs = dogs.filter((dog) => typeof dog.id === 'string');
+			}
 		}
-	}
 
-	if (filters.temperament !== '') {
-		filteredDogs = filteredDogs.filter((dog) =>
-			dog.temperament.includes(filters.temperament)
-		);
-	}
-	dispatch({
-		type: APPLY_FILTERS,
-		payload: filteredDogs,
-	});
-};
+		if (filters.temperament !== '') {
+			filteredDogs = filteredDogs.filter((dog) =>
+				dog.temperament.includes(filters.temperament)
+			);
+		}
+		dispatch({
+			type: APPLY_FILTERS,
+			payload: filteredDogs,
+		});
+		dispatch(setPagination(filteredDogs, pagination));
+	};
 
 export const setSearch = (search, dogs, filteredDogs) => (dispatch) => {
 	console.log(search, dogs, filteredDogs);

@@ -10,6 +10,7 @@ export default function Filter(props) {
 	const filters = useSelector((state) => state.filters);
 	const allDogs = useSelector((state) => state.allDogs);
 	const filteredDogs = useSelector((state) => state.filteredDogs);
+	const pagination = useSelector((state) => state.pagination);
 	const onHandleSelect = (e) => {
 		setTempFilter(e.target.value);
 	};
@@ -23,7 +24,7 @@ export default function Filter(props) {
 		dispatch(setFilters(filters, source, 'source'));
 	}, [source]);
 	useEffect(() => {
-		dispatch(applyFilters(filters, allDogs, filteredDogs));
+		dispatch(applyFilters(filters, allDogs, filteredDogs, pagination));
 	}, [filters]);
 	switch (props.type) {
 		case 'temperaments':
