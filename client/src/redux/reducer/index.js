@@ -7,7 +7,8 @@ import {
 	SEARCH_DOG_DETAILS,
 	GET_ALL_TEMPERAMENTS,
 	SET_SORT,
-	SET_FILTER,
+	SET_FILTERS,
+	APPLY_FILTERS,
 } from '../actionTypes';
 
 const initialState = {
@@ -16,7 +17,7 @@ const initialState = {
 	dogDetails: {},
 	filteredDogs: [],
 	filters: {
-		weight: '',
+		source: '',
 		temperament: '',
 	},
 	isLoading: false,
@@ -124,6 +125,17 @@ const rootReducer = (state = initialState, action) => {
 			return {
 				...state,
 				filteredDogs: action.payload.dogs,
+			};
+		case SET_FILTERS:
+			return {
+				...state,
+				filters: action.payload,
+			};
+		case APPLY_FILTERS:
+			return {
+				...state,
+				filteredDogs: action.payload,
+				pagination: { ...state.pagination, actualPage: 0 },
 			};
 		default:
 			return state;

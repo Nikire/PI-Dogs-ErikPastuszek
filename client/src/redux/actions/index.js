@@ -8,7 +8,8 @@ import {
 	SEARCH_DOG_DETAILS,
 	GET_ALL_TEMPERAMENTS,
 	SET_SORT,
-	SET_FILTER,
+	SET_FILTERS,
+	APPLY_FILTERS,
 } from '../actionTypes';
 
 export const getAllDogs = () => async (dispatch) => {
@@ -96,11 +97,6 @@ export const setSort = (sortType, dogs) => (dispatch) => {
 				max_weight: max_weight,
 			};
 		});
-	console.log('ACA EMPIEZAAAAAAAAAAA');
-	dogs.forEach((dog) => {
-		if (isNaN(dog.max_weight)) console.log(dog.max_weight);
-	});
-
 	switch (sortType) {
 		case 'ASC':
 			dispatch({
@@ -153,6 +149,38 @@ export const setSort = (sortType, dogs) => (dispatch) => {
 	dispatch(setPagination(dogs));
 };
 
-export const setFilters = (filters, dogs) => (dispatch) => {
-	//
+export const setFilters = (filters, filter, filtertype) => (dispatch) => {
+	filters = { ...filters, [filtertype]: filter };
+	dispatch({
+		type: SET_FILTERS,
+		payload: filters,
+	});
+};
+
+export const applyFilters = (filters, dogs, filteredDogs) => (dispatch) => {
+	filteredDogs = filteredDogs.map((dog) => {
+		if (dog.temperament === undefined) dog.temperament = '';
+		return dog;
+	});
+	if (filters.source === '' || filters.temperament === '') {
+		filteredDogs = dogs;
+	}
+	if (filters.source !== '') {
+		if (filters.source === 'API') {
+			filteredDogs = dogs.filter((dog) => typeof dog.id === 'number');
+		}
+		if (filters.source === 'DB') {
+			filteredDogs = dogs.filter((dog) => typeof dog.id === 'string');
+		}
+	}
+
+	if (filters.temperament !== '') {
+		filteredDogs = filteredDogs.filter((dog) =>
+			dog.temperament.includes(filters.temperament)
+		);
+	}
+	dispatch({
+		type: APPLY_FILTERS,
+		payload: filteredDogs,
+	});
 };
