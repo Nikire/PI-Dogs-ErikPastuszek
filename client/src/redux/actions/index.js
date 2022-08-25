@@ -10,6 +10,7 @@ import {
 	SET_SORT,
 	SET_FILTERS,
 	APPLY_FILTERS,
+	SET_SEARCH,
 } from '../actionTypes';
 
 export const getAllDogs = () => async (dispatch) => {
@@ -181,6 +182,17 @@ export const applyFilters = (filters, dogs, filteredDogs) => (dispatch) => {
 	}
 	dispatch({
 		type: APPLY_FILTERS,
+		payload: filteredDogs,
+	});
+};
+
+export const setSearch = (search, dogs, filteredDogs) => (dispatch) => {
+	console.log(search, dogs, filteredDogs);
+	filteredDogs = dogs.filter((dog) =>
+		dog.name.toLowerCase().includes(search.trim().toLowerCase())
+	);
+	dispatch({
+		type: SET_SEARCH,
 		payload: filteredDogs,
 	});
 };

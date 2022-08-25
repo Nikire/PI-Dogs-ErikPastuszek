@@ -9,6 +9,7 @@ import {
 	SET_SORT,
 	SET_FILTERS,
 	APPLY_FILTERS,
+	SET_SEARCH,
 } from '../actionTypes';
 
 const initialState = {
@@ -125,6 +126,7 @@ const rootReducer = (state = initialState, action) => {
 			return {
 				...state,
 				filteredDogs: action.payload.dogs,
+				pagination: { ...state.pagination, actualPage: 0 },
 			};
 		case SET_FILTERS:
 			return {
@@ -132,6 +134,12 @@ const rootReducer = (state = initialState, action) => {
 				filters: action.payload,
 			};
 		case APPLY_FILTERS:
+			return {
+				...state,
+				filteredDogs: action.payload,
+				pagination: { ...state.pagination, actualPage: 0 },
+			};
+		case SET_SEARCH:
 			return {
 				...state,
 				filteredDogs: action.payload,
