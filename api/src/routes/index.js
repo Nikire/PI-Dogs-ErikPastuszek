@@ -51,8 +51,7 @@ router.get('/dogs', async (req, res) => {
 			res.status(404).json({ msg: 'Dog breeds not found!' });
 		else res.status(200).json(allDogs);
 	} catch (err) {
-		console.log(err);
-		res.json(err.message);
+		res.status(400).json(err.message);
 	}
 });
 //GET PARAMS
@@ -112,10 +111,9 @@ router.post('/dogs', async (req, res) => {
 			where: { name: temperaments },
 		});
 		dogPost.addTemperament(temperament);
-		res.json(dogPost);
+		res.status(200).json(dogPost);
 	} catch (err) {
-		console.log(err);
-		res.json(err.message);
+		res.status(400).json(err.message);
 	}
 });
 //----------------TEMPERAMENTS------------------
@@ -132,10 +130,9 @@ router.get('/temperaments', async (req, res) => {
 		} else {
 			temperamentsDb = temperamentsDb.map((temp) => temp.name);
 		}
-		res.json(temperamentsDb);
+		res.status(200).json(temperamentsDb);
 	} catch (err) {
-		console.log(err.message);
-		res.json(err.message);
+		res.status(400).json(err.message);
 	}
 });
 module.exports = router;
