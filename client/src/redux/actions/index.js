@@ -39,7 +39,6 @@ export const searchDogDetails = (id) => async (dispatch) => {
 	try {
 		const response = await axios.get(`http://localhost:3001/dogs/${id}`);
 		dispatch({ type: SEARCH_DOG_DETAILS, payload: response.data });
-		console.log(response);
 	} catch (err) {
 		dispatch(setLoading(false));
 		console.log(err);

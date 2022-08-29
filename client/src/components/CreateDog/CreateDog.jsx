@@ -193,7 +193,7 @@ export default function CreateDog(props) {
 							value={info.height_min}
 							onChange={onHandleChange}
 						/>
-						<label for="height_max">MAX </label>
+						<label htmlFor="height_max">MAX </label>
 						<input
 							name="height_max"
 							className="form-input-number small"
@@ -205,7 +205,7 @@ export default function CreateDog(props) {
 					</div>
 					<div className="form-section">
 						<h4>*Weight (Kg):</h4>
-						<label for="weight_min">MIN </label>
+						<label htmlFor="weight_min">MIN </label>
 						<input
 							name="weight_min"
 							className="form-input-number small"
@@ -214,7 +214,7 @@ export default function CreateDog(props) {
 							value={info.weight_min}
 							onChange={onHandleChange}
 						/>
-						<label for="weight_max">MAX </label>
+						<label htmlFor="weight_max">MAX </label>
 						<input
 							name="weight_max"
 							className="form-input-number small"
@@ -226,7 +226,7 @@ export default function CreateDog(props) {
 					</div>
 					<div className="form-section">
 						<h4>*Life-span (years):</h4>
-						<label for="lifespan_min">MIN </label>
+						<label htmlFor="lifespan_min">MIN </label>
 						<input
 							name="lifespan_min"
 							className="form-input-number small"
@@ -235,7 +235,7 @@ export default function CreateDog(props) {
 							value={info.lifespan_min}
 							onChange={onHandleChange}
 						/>
-						<label for="lifespan_max">MAX </label>
+						<label htmlFor="lifespan_max">MAX </label>
 						<input
 							name="lifespan_max"
 							className="form-input-number small"

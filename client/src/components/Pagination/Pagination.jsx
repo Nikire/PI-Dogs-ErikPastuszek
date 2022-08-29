@@ -1,12 +1,10 @@
 import React from 'react';
-import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { nextPage, prevPage } from '../../redux/actions';
 import './Pagination.css';
 export default function Pagination() {
 	const pagination = useSelector((state) => state.pagination);
 	const dispatch = useDispatch();
-	const dogs = useSelector((state) => state.allDogs);
 	const filteredDogs = useSelector((state) => state.filteredDogs);
 	const onClickPagination = (event) => {
 		if (event.target.innerHTML === '→') {
