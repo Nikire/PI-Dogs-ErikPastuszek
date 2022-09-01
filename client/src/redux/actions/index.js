@@ -11,6 +11,7 @@ import {
 	SET_FILTERS,
 	APPLY_FILTERS,
 	SET_SEARCH,
+	CLEAR_DETAILS,
 } from '../actionTypes';
 
 export const getAllDogs = () => async (dispatch) => {
@@ -230,7 +231,7 @@ export const applyFilters =
 		dispatch(setPagination(filteredDogs, pagination));
 	};
 
-export const setSearch = (search, dogs, filteredDogs) => (dispatch) => {
+/* export const setSearch = (search, dogs, filteredDogs) => (dispatch) => {
 	console.log(search, dogs, filteredDogs);
 	filteredDogs = dogs.filter((dog) =>
 		dog.name.toLowerCase().includes(search.trim().toLowerCase())
@@ -238,5 +239,20 @@ export const setSearch = (search, dogs, filteredDogs) => (dispatch) => {
 	dispatch({
 		type: SET_SEARCH,
 		payload: filteredDogs,
+	});
+}; */
+
+export const setSearch = (search) => async (dispatch) => {
+	const response = await axios.get(`http://localhost:3001/dogs?name=${search}`);
+	dispatch({
+		type: SET_SEARCH,
+		payload: response.data,
+	});
+};
+
+export const clearDetails = () => (dispatch) => {
+	dispatch({
+		type: CLEAR_DETAILS,
+		payload: {},
 	});
 };

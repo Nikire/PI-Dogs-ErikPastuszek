@@ -9,3 +9,4 @@ export const SET_SORT = 'SET_SORT';
 export const SET_FILTERS = 'SET_FILTERS';
 export const APPLY_FILTERS = 'APPLY_FILTERS';
 export const SET_SEARCH = 'SET_SEARCH';
+export const CLEAR_DETAILS = 'CLEAR_DETAILS';

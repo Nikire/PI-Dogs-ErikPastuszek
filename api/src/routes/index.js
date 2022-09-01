@@ -44,7 +44,7 @@ router.get('/dogs', async (req, res) => {
 		let allDogs = response.concat(dbDogs);
 		if (name) {
 			allDogs = allDogs.filter((dog) =>
-				dog.name.toLowerCase().includes(name.toLowerCase())
+				dog.name.toLowerCase().includes(name.trim().toLowerCase())
 			);
 		}
 		if (allDogs.length === 0)

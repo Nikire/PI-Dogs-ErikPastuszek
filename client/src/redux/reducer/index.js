@@ -10,6 +10,7 @@ import {
 	SET_FILTERS,
 	APPLY_FILTERS,
 	SET_SEARCH,
+	CLEAR_DETAILS,
 } from '../actionTypes';
 
 const initialState = {
@@ -39,6 +40,7 @@ const rootReducer = (state = initialState, action) => {
 				...state,
 				allDogs: action.payload,
 				filteredDogs: action.payload,
+				filters: { source: '', temperament: '' },
 			};
 		case SEARCH_DOG_DETAILS:
 			return {
@@ -101,6 +103,11 @@ const rootReducer = (state = initialState, action) => {
 				...state,
 				filteredDogs: action.payload,
 				pagination: { ...state.pagination, actualPage: 0 },
+			};
+		case CLEAR_DETAILS:
+			return {
+				...state,
+				dogDetails: action.payload,
 			};
 		default:
 			return state;

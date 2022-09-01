@@ -69,26 +69,28 @@ export default function CreateDog(props) {
 			errors = { ...errors, weight_max: true };
 			isValidated = false;
 		}
+		if (info.lifespan_min || info.lifespan_max) {
+			if (
+				info.lifespan_min >= 5 &&
+				info.lifespan_min <= 19 &&
+				Number(info.lifespan_min) < Number(info.lifespan_max)
+			) {
+				errors = { ...errors, lifespan_min: false };
+			} else {
+				errors = { ...errors, lifespan_min: true };
+				isValidated = false;
+			}
+			if (
+				info.lifespan_max <= 20 &&
+				Number(info.lifespan_min) < Number(info.lifespan_max)
+			) {
+				errors = { ...errors, lifespan_max: false };
+			} else {
+				errors = { ...errors, lifespan_max: true };
+				isValidated = false;
+			}
+		}
 
-		if (
-			info.lifespan_min >= 5 &&
-			info.lifespan_min <= 19 &&
-			Number(info.lifespan_min) < Number(info.lifespan_max)
-		) {
-			errors = { ...errors, lifespan_min: false };
-		} else {
-			errors = { ...errors, lifespan_min: true };
-			isValidated = false;
-		}
-		if (
-			info.lifespan_max <= 20 &&
-			Number(info.lifespan_min) < Number(info.lifespan_max)
-		) {
-			errors = { ...errors, lifespan_max: false };
-		} else {
-			errors = { ...errors, lifespan_max: true };
-			isValidated = false;
-		}
 		if (
 			(typeof info.image === 'string' &&
 				info.image.match(/([a-z\-_0-9\/\:\.]*\.(jpg|jpeg|png|gif))/i)) ||
@@ -150,8 +152,8 @@ export default function CreateDog(props) {
 		height_max: 0,
 		weight_min: 0,
 		weight_max: 0,
-		lifespan_min: 0,
-		lifespan_max: 0,
+		/*  lifespan_min: 0,
+		lifespan_max: 0, */
 		image: '',
 	});
 

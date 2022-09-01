@@ -2,7 +2,7 @@ import React from 'react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { searchDogDetails } from '../../redux/actions';
+import { searchDogDetails, clearDetails } from '../../redux/actions';
 import Spinner from '../Spinner/Spinner';
 import NotFound from '../NotFound/NotFound';
 import './DogDetail.css';
@@ -11,9 +11,11 @@ export default function DogDetail(props) {
 	const dispatch = useDispatch();
 	const dogDetails = useSelector((state) => state.dogDetails);
 	const loading = useSelector((state) => state.isLoading);
+
 	useEffect(() => {
 		props.activeNowNav();
 		dispatch(searchDogDetails(params.id));
+		return () => dispatch(clearDetails());
 	}, [dispatch]);
 
 	return (
